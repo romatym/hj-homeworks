@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div class="item">TODO write content</div>
+        <div class="item">TODO write content</div>
+        <div class="item">TODO write content</div>
+        <div class="item">TODO write content</div>
+        <div class="item">TODO write content</div>
+        <div class="item">TODO write content</div>
+        <div class="item">TODO write content</div>
+        <div class="item">TODO write content</div>
+        <div class="item">TODO write content</div>
+        <div class="item">TODO write content</div>
+        <div class="item">TODO write content</div>
+        <div class="item">TODO write content</div>
+        
+        <audio controls src="файл"></audio>
+        
+        <script>
+            //const items = document.getElementsByClassName('item');
+
+//            Array.from(items).forEach(item => item.classList.remove('active'));
+//            //const mainItem = items.find(item => item.classList.contains('main'));
+//            for (const item of items) { console.log(item.className); }
+//            items[4].classList.add('selected');
+//            const lastItem = items[items.length];
+
+            //**************************
+//            const menu = document.getElementById('menu');
+//            const buttons = document.getElementsByTagName('buttons');
+//            const items = document.getElementsByClassName('items');            
+            
+        const player = document.getElementsByTagName('audio')[0];
+        const button = document.getElementsByClassName('play-button');
+        button.onclick = function () {
+            const method = player.classList.contains('is-playing') ? 'pause' : 'play';
+            this.classList.toggle('is-playing');
+            player[method]();
+            //
+        }
+            
+        </script>
+        
+    </body>
+</html>
