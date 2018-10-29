@@ -8,31 +8,40 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <ul class="drum-kit">
-    <li class="drum-kit__drum key-clap">
-      <span class="drum-kit__drum__type">Clap</span>
-  		<audio src="wav/clap.wav" />
-  	</li>
-  	<li class="drum-kit__drum key-hihat">
-  	  <span class="drum-kit__drum__type">Hihat</span>
-  		<audio src="wav/hihat.wav" />
-  	</li>
-  	<li class="drum-kit__drum key-kick">
-      <span class="drum-kit__drum__type">Kick</span>
-  		<audio src="wav/kick.wav" />
-  	</li>
-  	<li class="drum-kit__drum key-openhat">
-      <span class="drum-kit__drum__type">Openhat</span>
-  		<audio src="wav/openhat.wav" />
-  	</li>
-  	<li class="drum-kit__drum key-boom">
-      <span class="drum-kit__drum__type">Boom</span>
-  		<audio src="wav/boom.wav" />
-  	</li>
-  	<li class="drum-kit__drum key-ride">
-      <span class="drum-kit__drum__type">Ride</span>
-  		<audio src="wav/ride.wav" />
-  	</li>
-  </ul>
+    <ul class="drum-kit">
+        <li class="drum-kit__drum key-clap">
+            <span class="drum-kit__drum__type">Clap</span>
+            <audio src="wav/clap.wav" />
+        </li>
+        <li class="drum-kit__drum key-hihat">
+            <span class="drum-kit__drum__type">Hihat</span>
+            <audio src="wav/hihat.wav" />
+        </li>
+        <li class="drum-kit__drum key-kick">
+            <span class="drum-kit__drum__type">Kick</span>
+            <audio src="wav/kick.wav" />
+        </li>
+        <li class="drum-kit__drum key-openhat">
+            <span class="drum-kit__drum__type">Openhat</span>
+            <audio src="wav/openhat.wav" />
+        </li>
+        <li class="drum-kit__drum key-boom">
+            <span class="drum-kit__drum__type">Boom</span>
+            <audio src="wav/boom.wav" />
+        </li>
+        <li class="drum-kit__drum key-ride">
+            <span class="drum-kit__drum__type">Ride</span>
+            <audio src="wav/ride.wav" />
+        </li>
+    </ul>
+    
+  <script>
+    for (const elementLi of document.getElementsByTagName('li')) {
+        elementLi.onclick = function() {
+            var audiosrc = elementLi.getElementsByTagName('audio')[0];
+            audiosrc.play();
+        };        
+    }
+  </script>
 </body>
 </html>
