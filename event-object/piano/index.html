@@ -8,22 +8,54 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <ul class="set middle">
-    <li class="white">
-      <audio src=""></audio>
-    </li>
-    <li class="black">
-      <audio src=""></audio>
-    </li>
-  	<li class="white">
-      <audio src=""></audio>
-    </li>
-    <li class="black">
-      <audio src=""></audio>
-    </li>
-  	<li class="white">
-      <audio src=""></audio>
-    </li>
-  </ul>
+    <ul class="set middle">
+        <li id="0" class="white">
+            <audio src=""></audio>
+        </li>
+        <li id="1" class="black">
+            <audio src=""></audio>
+        </li>
+        <li id="2" class="white">
+            <audio src=""></audio>
+        </li>
+        <li id="3" class="black">
+            <audio src=""></audio>
+        </li>
+        <li id="4" class="white">
+            <audio src=""></audio>
+        </li>
+    </ul>
+
+<script>
+    function updatePlayer(event) {
+        if(event.shiftKey) {
+            event.shift = true;
+        } else {
+            event.shift = false;
+        }
+        if(event.altKey) {
+            event.alt = true;
+        } else {
+            event.alt = false;
+        }
+    }
+    document.addEventListener('keydown', updatePlayer);    
+    function playSound(event) {
+        const id = event.target.keyId;
+        var button = document.getElementById(id);
+        const audiosrc = button.getElementsByTagName('audio')[0];
+        audiosrc.setAttribute('src', src);
+        audiosrc.play();
+    }
+        
+    for (const button of document.getElementsByTagName('li')) {
+        var keyId = button.getAttribute('id');
+        button.addEventListener('click', playSound);
+        button.keyId = keyId;
+    }
+    
+</script>
+    
 </body>
+
 </html>
