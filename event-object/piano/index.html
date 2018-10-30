@@ -27,24 +27,63 @@
     </ul>
 
 <script>
+    var shift = false;
+    var alt = false;
+    var songs = [
+        'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/lower/first.mp3',
+        'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/lower/second.mp3',
+        'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/lower/third.mp3',
+        'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/lower/fourth.mp3',
+        'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/lower/fifth.mp3',
+        'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/middle/first.mp3',
+        'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/middle/second.mp3',
+        'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/middle/third.mp3',
+        'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/middle/fourth.mp3',
+        'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/middle/fifth.mp3',
+        'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/higher/first.mp3',
+        'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/higher/second.mp3',
+        'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/higher/third.mp3',
+        'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/higher/fourth.mp3',
+        'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/higher/fifth.mp3',
+        
+    ];
     function updatePlayer(event) {
         if(event.shiftKey) {
-            event.shift = true;
+            shift = true;
         } else {
-            event.shift = false;
+            shift = false;
         }
         if(event.altKey) {
-            event.alt = true;
+            alt = true;
         } else {
-            event.alt = false;
+            alt = false;
         }
     }
-    document.addEventListener('keydown', updatePlayer);    
+    document.addEventListener('keydown', updatePlayer);
+    
     function playSound(event) {
         const id = event.target.keyId;
         var button = document.getElementById(id);
+        var ulClass = document.getElementsByTagName('ul')[0];
         const audiosrc = button.getElementsByTagName('audio')[0];
-        audiosrc.setAttribute('src', src);
+        var numSong;
+        if(shift) {
+            numSong = 0 + Number(id);
+            ulClass.classList.toggle('lower', true);
+            ulClass.classList.toggle('middle', false);
+            ulClass.classList.toggle('higher', false);
+        } else if(alt) {
+            numSong = 10 + Number(id);
+            ulClass.classList.toggle('lower', false);
+            ulClass.classList.toggle('middle', false);
+            ulClass.classList.toggle('higher', true);            
+        } else {
+            numSong = 5 + Number(id);
+            ulClass.classList.toggle('lower', false);
+            ulClass.classList.toggle('middle', true);
+            ulClass.classList.toggle('higher', false);            
+        }
+        audiosrc.setAttribute('src', songs[numSong]);
         audiosrc.play();
     }
         
