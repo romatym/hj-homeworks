@@ -45,5 +45,38 @@
       </svg>
     </div>
   </main>
+    
+    <script>
+
+    var secret = '';
+    var secretKey = 'ytnjkjubz'; //нетология
+    
+    function updateKeys(event) {
+        if(event.code === 'KeyT' && event.altKey && event.ctrlKey) {
+            document.getElementsByTagName('nav')[0].classList.toggle('visible');
+        }
+        
+        if(event.code.substr(0,3) === 'Key') {
+            secret += event.code.toLowerCase()[3];
+        } else {
+            return;
+        }
+        
+        var match = true;
+        for(i=0; i < secret.length; i++) {
+            if(!(secretKey[i] === secret[i])) {
+                secret = '';
+                match = false;
+                break;
+            }
+        }
+        if(match && secret.length === secretKey.length ) {
+            document.getElementsByClassName('secret')[0].classList.toggle('visible', true);
+        }
+    }
+    
+    document.addEventListener('keydown', updateKeys);
+    
+    </script>
 </body>
 </html>
