@@ -21,5 +21,53 @@
     </div>
     <div id="preloader" class="hidden">Загрузка...</div>
   </div>
+    
+<script>
+    document.addEventListener("click", tabClick);
+    
+    function tabClick(event) {
+        event.preventDefault();
+        const requestLink = event.target.getAttribute('href');
+        const request = new XMLHttpRequest();
+        
+        request.addEventListener("load", onLoad);
+        request.addEventListener("loadstart", onLoadStart);
+        request.addEventListener("loadend", onLoadEnd);
+        request.addEventListener('error', onError);
+        
+        request.currentElement = event.target; //event.currentTarget //event.parentElement
+        request.open('GET', requestLink, true);
+        request.send();
+    }
+    
+    function onError(errorMsg) {
+        console.log("Сработало событие error");
+    }
+
+    function onLoadStart() {
+        document.getElementById('preloader').classList.toggle('hidden', false);
+    }
+    
+    function onLoadEnd() {
+        document.getElementById('preloader').classList.toggle('hidden', true);
+    }
+    
+    function onLoad() {
+        if (this.status === 200) {
+            
+            document.getElementById('content').innerHTML = this.responseText;
+                    
+            const tabElements = document.getElementsByTagName('a');
+            for(tabElement of tabElements) {
+                if(tabElement === this.currentElement) {
+                    tabElement.classList.toggle("active", true);
+                } else {
+                    tabElement.classList.toggle("active", false);
+                }
+            }
+        }
+    }
+        
+</script>
 </body>
 </html>
