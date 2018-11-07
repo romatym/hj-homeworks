@@ -47,7 +47,7 @@
                         counter++;
                     }
                 }
-                document.getElementsByTagName('output')[0].innerHTML = counter;
+                document.getElementsByTagName('output')[0].innerHTML = counter + '/' + tasks.length;
                 if (counter === 4) {
                     document.getElementsByClassName('list-block')[0].classList.toggle('complete', true);
                 } else {
