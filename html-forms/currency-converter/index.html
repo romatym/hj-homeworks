@@ -25,30 +25,34 @@
         request.open('GET', 'https://neto-api.herokuapp.com/currency', true);
         request.send();
         
+        const source = document.getElementById('source');
         const from = document.getElementById('from');
         const to = document.getElementById('to');
+        var response;
         
         function onLoad() {
             if (this.status === 200) {
-                const response = JSON.parse(this.responseText);
+                response = JSON.parse(this.responseText);
                 var selectCurrency = '';
                 for (const curr of response) {
                     selectCurrency += '<option>' + curr.code + '</option>';
                 }
                 
+                source.addEventListener('input', convert);
+                
                 from.innerHTML = selectCurrency;
-                from.addEventListener('change', convert);
+                from.addEventListener('input', convert);
                 
                 to.innerHTML = selectCurrency;
-                to.addEventListener('change', convert);
+                to.addEventListener('input', convert);
             }
             document.getElementById('loader').classList.toggle('hidden', true);
             document.getElementById('content').classList.toggle('hidden', false);
         }
         function convert(event) {
-            var currFrom = from.selectedIndex;
+            var result = source.value * response[from.selectedIndex].value / response[to.selectedIndex].value;
+            document.getElementById('result').innerHTML = Math.round(result*100)/100;
         }
-
 
     </script>
 </html>
