@@ -6,12 +6,17 @@ const buttonReturn = document.getElementsByClassName('button-contact')[1];
 buttonReturn.addEventListener('click', submit);
 var dataset = [];
 
+var index = document.querySelector('[name="zip"]');
+index.addEventListener('keypress', zipKeypress);
+
 function init() {
     const fields = document.getElementsByClassName('form-group');
     for (const field of fields) {
 
         var inputField = field.getElementsByTagName('input');
-        if (inputField.length > 0) {
+        if (inputField[0].name === index.name) {
+            continue;
+        } else if (inputField.length > 0) {
             inputField[0].addEventListener('input', checkForm);
         } else {
             var textArea = field.getElementsByTagName('textarea');
@@ -21,10 +26,42 @@ function init() {
     checkForm();
 }
 
+function zipKeypress(e) {
+    e = e || event;
+
+    if (e.ctrlKey || e.altKey || e.metaKey) {
+        return;
+    }
+    var chr = getChar(e);
+    if (chr === null) {
+        return;
+    }
+    if (chr < '0' || chr > '9') {
+        e.preventDefault();
+        return false;
+    }
+}
+
+function getChar(event) {
+    if (event.which == null) {
+        if (event.keyCode < 32)
+            return null;
+        return String.fromCharCode(event.keyCode) // IE
+    }
+
+    if (event.which != 0 && event.charCode != 0) {
+        if (event.which < 32)
+            return null;
+        return String.fromCharCode(event.which) // остальные
+    }
+
+    return null; // специальная клавиша
+}
+
 function checkForm() {
     dataset = [];
     const fields = document.getElementsByClassName('form-group');
-    
+
     for (const field of fields) {
 
         var inputField = field.getElementsByTagName('input');
@@ -41,7 +78,7 @@ function checkForm() {
             counter++;
         }
     }
-    if(counter === 11) {
+    if (counter === 11) {
         fillOutput();
         buttonSubmit.removeAttribute('disabled');
     } else {
@@ -57,7 +94,7 @@ function fillOutput() {
     var mainOutput = document.getElementsByTagName('main');
     for (const dataField of dataset) {
         var findElem = document.getElementById(dataField['name']);
-        if(findElem !== null) {
+        if (findElem !== null) {
             findElem.innerHTML = dataField.value;
         }
     }
