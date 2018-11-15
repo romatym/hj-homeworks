@@ -1,51 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Задача 3. Аудиоплеер | Домашнее задание к лекции 1.2</title>
-  <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-    <div class="mediaplayer">
-        <audio src="https://d34x6xks9kc6p2.cloudfront.net/540997b0-a35f-4b69-86d6-b1c925c4a264/540997b0-a35f-4b69-86d6-b1c925c4a264.mp3"></audio>
-        <div class="discarea">
-            <div class="disc">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Задача 3. Аудиоплеер | Домашнее задание к лекции 1.2</title>
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+        <div class="mediaplayer">
+            <audio src="https://d34x6xks9kc6p2.cloudfront.net/540997b0-a35f-4b69-86d6-b1c925c4a264/540997b0-a35f-4b69-86d6-b1c925c4a264.mp3"></audio>
+            <div class="discarea">
+                <div class="disc">
+                </div>
+                <div class="stylus">
+                    <div class="pivot"></div>
+                    <div class="arm"></div>
+                    <div class="head"></div>
+                </div>
             </div>
-            <div class="stylus">
-                <div class="pivot"></div>
-                <div class="arm"></div>
-                <div class="head"></div>
+            <div class="controls">
+                <span class="title" title="LA Chill Tour"></span>
+                <div class="buttons">
+                    <button class="back" onclick="player.left();">
+                        <i class="fa fa-backward"></i>
+                    </button>
+                    <button class="playstate">
+                        <i class="fa fa-play"></i>
+                        <i class="fa fa-pause"></i>
+                    </button>
+                    <button class="stop">
+                        <i class="fa fa-stop"></i>
+                    </button>
+                    <button class="next" onclick="player.right();">
+                        <i class="fa fa-forward"></i>
+                    </button>
+                </div>
             </div>
         </div>
-        <div class="controls">
-            <span class="title" title="LA Chill Tour"></span>
-            <div class="buttons">
-                <button class="back" onclick="player.left();">
-                    <i class="fa fa-backward"></i>
-                </button>
-                <button class="playstate">
-                    <i class="fa fa-play"></i>
-                    <i class="fa fa-pause"></i>
-                </button>
-                <button class="stop">
-                    <i class="fa fa-stop"></i>
-                </button>
-                <button class="next" onclick="player.right();">
-                    <i class="fa fa-forward"></i>
-                </button>
-            </div>
-        </div>
-    </div>
-    <script>
-        var player = {
-            songs: [
-                        'https://netology-code.github.io/hj-homeworks/html-element-collection/audioplayer/mp3/LA Chill Tour.mp3',
-                        'https://netology-code.github.io/hj-homeworks/html-element-collection/audioplayer/mp3/This is it band.mp3',
-                        'https://netology-code.github.io/hj-homeworks/html-element-collection/audioplayer/mp3/LA Fusion Jam.mp3'
-                    ],
-                names: ['LA Chill Tour','This is it band','LA Fusion Jam'],
+        <script>
+            var player = {
+                songs: [
+                    'https://netology-code.github.io/hj-homeworks/html-element-collection/audioplayer/mp3/LA Chill Tour.mp3',
+                    'https://netology-code.github.io/hj-homeworks/html-element-collection/audioplayer/mp3/This is it band.mp3',
+                    'https://netology-code.github.io/hj-homeworks/html-element-collection/audioplayer/mp3/LA Fusion Jam.mp3'
+                ],
+                names: ['LA Chill Tour', 'This is it band', 'LA Fusion Jam'],
                 frame: 0, // текущий трек
                 set: function (track) { // установка нужного трека
                     document.getElementsByTagName("audio")[0].src = track;
@@ -70,43 +70,39 @@
                     audio.play();
                 }
             };
-                
-        var mediaplayer = document.getElementsByClassName('mediaplayer')[0];
-        var mediaplayerPlay = function() {
-          mediaplayer.classList.toggle('play');
-        };
-        var audio = document.getElementsByTagName('audio')[0];
-            
-        var playstate = document.getElementsByClassName('playstate')[0];
-        
-        playstate.onclick = function() {
-          playstate.classList.toggle('active');
-          if(playstate.classList.contains('active') ) {
-              playstate.getElementsByClassName('fa-play')[0].style.visibility = "hidden";
-              playstate.getElementsByClassName('fa-pause')[0].style.visibility = "visible";
-              audio.play();
-              mediaplayerPlay();
-          } else {
-              playstate.getElementsByClassName('fa-play')[0].style.visibility = "visible";
-              playstate.getElementsByClassName('fa-pause')[0].style.visibility = "hidden";
-              audio.pause();
-              mediaplayerPlay();
-          }
-        };
 
-        var stop = document.getElementsByClassName('stop')[0];
-        stop.onclick = function() {
-            if(playstate.classList.contains('active')) {
-                playstate.onclick();
-                audio.currentTime = 0;
+            var mediaplayer = document.getElementsByClassName('mediaplayer')[0];
+            var audio = document.getElementsByTagName('audio')[0];
+            var playstate = document.getElementsByClassName('playstate')[0];
+
+            audio.onended = function(){
+                player.right();
             }
-        }
-        
-        window.onload = function () { // запуск плеера после загрузки документа
-            player.init();
-        };
-        
-    </script>
 
-</body>
+            playstate.onclick = function () {
+                playstate.classList.toggle('active');
+                if (playstate.classList.contains('active')) {
+                    mediaplayer.classList.toggle('play', true);
+                    audio.play();
+                } else {
+                    mediaplayer.classList.toggle('play', false);
+                    audio.pause();
+                }
+            };
+
+            var stop = document.getElementsByClassName('stop')[0];
+            stop.onclick = function () {
+                if (playstate.classList.contains('active')) {
+                    playstate.onclick();
+                    audio.currentTime = 0;
+                }
+            }
+
+            window.onload = function () { // запуск плеера после загрузки документа
+                player.init();
+            };
+
+        </script>
+
+    </body>
 </html>
