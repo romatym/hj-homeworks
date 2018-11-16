@@ -1,100 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Задача 1. Пианино | Домашнее задание к лекции 2.1</title>
-  <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-    <ul class="set middle">
-        <li id="0" class="white">
-            <audio src=""></audio>
-        </li>
-        <li id="1" class="black">
-            <audio src=""></audio>
-        </li>
-        <li id="2" class="white">
-            <audio src=""></audio>
-        </li>
-        <li id="3" class="black">
-            <audio src=""></audio>
-        </li>
-        <li id="4" class="white">
-            <audio src=""></audio>
-        </li>
-    </ul>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Задача 1. Пианино | Домашнее задание к лекции 2.1</title>
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+        <ul class="set middle">
+            <li id="0" class="white">
+                <audio src=""></audio>
+            </li>
+            <li id="1" class="black">
+                <audio src=""></audio>
+            </li>
+            <li id="2" class="white">
+                <audio src=""></audio>
+            </li>
+            <li id="3" class="black">
+                <audio src=""></audio>
+            </li>
+            <li id="4" class="white">
+                <audio src=""></audio>
+            </li>
+        </ul>
 
-<script>
-    var shift = false;
-    var alt = false;
-    var songs = [
-        'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/lower/first.mp3',
-        'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/lower/second.mp3',
-        'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/lower/third.mp3',
-        'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/lower/fourth.mp3',
-        'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/lower/fifth.mp3',
-        'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/middle/first.mp3',
-        'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/middle/second.mp3',
-        'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/middle/third.mp3',
-        'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/middle/fourth.mp3',
-        'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/middle/fifth.mp3',
-        'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/higher/first.mp3',
-        'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/higher/second.mp3',
-        'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/higher/third.mp3',
-        'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/higher/fourth.mp3',
-        'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/higher/fifth.mp3',
-        
-    ];
-    function updatePlayer(event) {
-        if(event.shiftKey) {
-            shift = true;
-        } else {
-            shift = false;
-        }
-        if(event.altKey) {
-            alt = true;
-        } else {
-            alt = false;
-        }
-    }
-    document.addEventListener('keydown', updatePlayer);
-    
-    function playSound(event) {
-        const id = event.target.keyId;
-        var button = document.getElementById(id);
-        var ulClass = document.getElementsByTagName('ul')[0];
-        const audiosrc = button.getElementsByTagName('audio')[0];
-        var numSong;
-        if(shift) {
-            numSong = 0 + Number(id);
-            ulClass.classList.toggle('lower', true);
-            ulClass.classList.toggle('middle', false);
-            ulClass.classList.toggle('higher', false);
-        } else if(alt) {
-            numSong = 10 + Number(id);
-            ulClass.classList.toggle('lower', false);
-            ulClass.classList.toggle('middle', false);
-            ulClass.classList.toggle('higher', true);            
-        } else {
-            numSong = 5 + Number(id);
-            ulClass.classList.toggle('lower', false);
-            ulClass.classList.toggle('middle', true);
-            ulClass.classList.toggle('higher', false);            
-        }
-        audiosrc.setAttribute('src', songs[numSong]);
-        audiosrc.play();
-    }
-        
-    for (const button of document.getElementsByTagName('li')) {
-        var keyId = button.getAttribute('id');
-        button.addEventListener('click', playSound);
-        button.keyId = keyId;
-    }
-    
-</script>
-    
-</body>
+        <script>
+            var ulClass = document.getElementsByTagName('ul')[0];
+            var songs = [
+                'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/lower/first.mp3',
+                'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/lower/second.mp3',
+                'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/lower/third.mp3',
+                'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/lower/fourth.mp3',
+                'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/lower/fifth.mp3',
+                'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/middle/first.mp3',
+                'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/middle/second.mp3',
+                'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/middle/third.mp3',
+                'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/middle/fourth.mp3',
+                'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/middle/fifth.mp3',
+                'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/higher/first.mp3',
+                'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/higher/second.mp3',
+                'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/higher/third.mp3',
+                'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/higher/fourth.mp3',
+                'https://netology-code.github.io/hj-homeworks/event-object/piano/sounds/higher/fifth.mp3'
+            ];
+            function updatePlayer(event) {
+                if(event.shiftKey) {
+                    ulClass.classList.toggle('lower', true);
+                    ulClass.classList.toggle('middle', false);
+                    ulClass.classList.toggle('higher', false);
+                } else if(event.altKey) {
+                    ulClass.classList.toggle('lower', false);
+                    ulClass.classList.toggle('middle', false);
+                    ulClass.classList.toggle('higher', true);
+                } else {
+                    ulClass.classList.toggle('lower', false);
+                    ulClass.classList.toggle('middle', true);
+                    ulClass.classList.toggle('higher', false);                    
+                }
+            }
+            document.addEventListener('keydown', updatePlayer);
+            document.addEventListener('keyup', updatePlayer);
+
+            function playSound(event) {
+                const id = event.target.keyId;
+                var button = document.getElementById(id);
+                //var ulClass = document.getElementsByTagName('ul')[0];
+                const audiosrc = button.getElementsByTagName('audio')[0];
+                var numSong;
+                if (event.shiftKey) {
+                    numSong = 0 + Number(id);
+                } else if (event.altKey) {
+                    numSong = 10 + Number(id);
+                } else {
+                    numSong = 5 + Number(id);
+                }
+                audiosrc.setAttribute('src', songs[numSong]);
+                audiosrc.play();
+            }
+
+            for (const button of document.getElementsByTagName('li')) {
+                var keyId = button.getAttribute('id');
+                button.addEventListener('click', playSound);
+                button.keyId = keyId;
+            }
+
+        </script>
+
+    </body>
 
 </html>
