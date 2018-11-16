@@ -5,10 +5,11 @@ var articles = document.getElementsByClassName('tabs-content')[0];
 var tabTemplate = tabsList.removeChild(tabsList.querySelector('li'));
 for (var article of articles.children) {
     var newTab = tabTemplate.cloneNode(true);
-    newTab.setAttribute('data-tab-icon', article.dataset.tabIcon);
     tabsList.appendChild(newTab);
     
-    newTab.children[0].textContent = article.dataset.tabTitle;
+    const tagA = newTab.children[0];
+    tagA.textContent = article.dataset.tabTitle;
+    tagA.classList.add('data-tab-icon', article.dataset.tabIcon);
     newTab.addEventListener('click', tabClick);
 }
 

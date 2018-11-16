@@ -1,5 +1,5 @@
 
-var buttons = document.getElementsByTagName('a');
+const buttons = document.getElementsByTagName('a');
 var slides = document.getElementsByClassName('slide');
 for (const button of buttons) {
     button.addEventListener('click', buttonClick);
@@ -33,21 +33,25 @@ function buttonClick(event) {
 function buttonCheckAvaible() {
     const currentSlide = document.querySelector('ul.slides .slide-current');
     const buttonsGroup = document.getElementsByClassName('slider-nav')[0];
+    
+    const next = buttonsGroup.querySelector('[data-action="next"]').classList;
+    const last = buttonsGroup.querySelector('[data-action="last"]').classList;
+    const first = buttonsGroup.querySelector('[data-action="first"]').classList;
+    const prev = buttonsGroup.querySelector('[data-action="prev"]').classList;
     if (currentSlide.nextElementSibling === null) {
-        buttonsGroup.querySelector('[data-action="next"]').classList.toggle('disabled', true);
-        buttonsGroup.querySelector('[data-action="last"]').classList.toggle('disabled', true);
-        buttonsGroup.querySelector('[data-action="first"]').classList.toggle('disabled', false);
-        buttonsGroup.querySelector('[data-action="prev"]').classList.toggle('disabled', false);
-
+        next.toggle('disabled', true);
+        last.toggle('disabled', true);
+        first.toggle('disabled', false);
+        prev.toggle('disabled', false);
     } else if (currentSlide.previousElementSibling === null) {
-        buttonsGroup.querySelector('[data-action="next"]').classList.toggle('disabled', false);
-        buttonsGroup.querySelector('[data-action="last"]').classList.toggle('disabled', false);
-        buttonsGroup.querySelector('[data-action="first"]').classList.toggle('disabled', true);
-        buttonsGroup.querySelector('[data-action="prev"]').classList.toggle('disabled', true);
+        next.toggle('disabled', false);
+        last.toggle('disabled', false);
+        first.toggle('disabled', true);
+        prev.toggle('disabled', true);
     } else {
-        buttonsGroup.querySelector('[data-action="next"]').classList.toggle('disabled', false);
-        buttonsGroup.querySelector('[data-action="last"]').classList.toggle('disabled', false);
-        buttonsGroup.querySelector('[data-action="first"]').classList.toggle('disabled', false);
-        buttonsGroup.querySelector('[data-action="prev"]').classList.toggle('disabled', false);
+        next.toggle('disabled', false);
+        last.toggle('disabled', false);
+        first.toggle('disabled', false);
+        prev.toggle('disabled', false);
     }
 }
