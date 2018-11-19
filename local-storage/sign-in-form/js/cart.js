@@ -1,49 +1,48 @@
 'use strict';
-
-var colors, sizes, cart;
-document.addEventListener('DOMContentLoaded', init);
-
-function init() {
-    var xhr = new XMLHttpRequest();
-    xhr.addEventListener('load', getColors);
-    xhr.open('GET', 'https://neto-api.herokuapp.com/cart/colors');
-    xhr.send();
-    var xhr = new XMLHttpRequest();
-    xhr.addEventListener('load', getSizes);
-    xhr.open('GET', 'https://neto-api.herokuapp.com/cart/sizes');
-    xhr.send();
-    var xhr = new XMLHttpRequest();
-    xhr.addEventListener('load', getCart);
-    xhr.open('GET', 'https://neto-api.herokuapp.com/cart');
-    xhr.send();
+const forms = document.getElementsByClassName('login-form')[0].children;
+for (const form of forms) {
+    form.addEventListener('submit', submit);
 }
-function getColors() {
+var activeForm;
+function submit(event) {
+    event.preventDefault();
+    activeForm = event.currentTarget;
+    
+    var formData = new FormData(event.currentTarget);
+    var object = {};
+    for (const [key, value] of formData) {
+        object[key] = value;
+    }
+    const jsonForm = JSON.stringify(object);
+
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', res);
+    if (event.currentTarget.classList.contains('sign-in-htm')) {
+        xhr.open('POST', 'https://neto-api.herokuapp.com/signin');
+    } else {
+        xhr.open('POST', 'https://neto-api.herokuapp.com/signup');
+    }
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(jsonForm);
+}
+
+function res() {
+    //здесь не удалось проверить вариант с успешной авторизацией, так как сервер возвращал ошибку 500
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-        colors = JSON.parse(this.response);
-        const colorSwatch = document.getElementById('colorSwatch');
-        for(const color of colors) {
-            const available = color.isAvailable ? ' available ' : ' soldout ';
-            const disabled = color.isAvailable ? '' : ' disabled ';
-            
-            colorSwatch.innerHTML += 
-                '<div data-value="' + color.type + '" class="swatch-element color ' + color.type + available +' ">'+
-                '<div class="tooltip">' + color.title + '</div>'+
-                '<input quickbeam="color" id="swatch-1-' + color.type + '" type="radio" name="color" value="' + color.type + disabled + '" checked>'+
-                '<label for="swatch-1-' + color.type + '" style="border-color: red;">'+
-                  '<span style="background-color: ' + color.code + ';"></span>'+
-                  '<img class="crossed-out" src="https://neto-api.herokuapp.com/hj/3.3/cart/soldout.png?10994296540668815886">'+
-                '</label>'+
-              '</div>';
+        const response = JSON.parse(this.response);
+        const output = activeForm.getElementsByTagName('output')[0];
+        if(response.hasOwnProperty('error')) {
+            output.innerText = response.message;
+            output.classList.add('error-message');
+        } else if(response.hasOwnProperty('email') && activeForm.classList.contains('sign-in-htm')) {
+            output.innerText = 'Пользователь ' + response.name + ' успешно авторизован';
+            output.classList.remove('error-message');
+        } else if(response.hasOwnProperty('email') && activeForm.classList.contains('sign-up-htm')) {
+            output.innerText = 'Пользователь ' + response.name + ' успешно зарегистрирован';    
+            output.classList.remove('error-message');
         }
-    }
-}
-function getSizes() {
-    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-        sizes = this.response;
-    }
-}
-function getCart() {
-    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-        cart = this.response;
+    } else { //ошибка сервера 500
+        output.innerText = this.response;
+        output.classList.add('error-message');
     }
 }
