@@ -1,31 +1,47 @@
 'use strict';
 
 function showComments(list) {
-  const commentsContainer = document.querySelector('.comments');
-  const comments = list.map(createComment).join('');
-  commentsContainer.innerHTML += comments;
-}
+    const commentsContainer = document.querySelector('.comments');
 
+    const fragment = list.reduce(
+            function (fragment, currentValue) {
+                fragment.appendChild(createComment(currentValue));
+                return fragment;
+            }, document.createDocumentFragment());
+
+    commentsContainer.appendChild(fragment);
+}
 function createComment(comment) {
-  return `<div class="comment-wrap">
-    <div class="photo" title="${comment.author.name}">
-      <div class="avatar" style="background-image: url('${comment.author.pic}')"></div>
-    </div>
-    <div class="comment-block">
-      <p class="comment-text">
-        ${comment.text.split('\n').join('<br>')}
-      </p>
-      <div class="bottom-comment">
-        <div class="comment-date">${new Date(comment.date).toLocaleString('ru-Ru')}</div>
-        <ul class="comment-actions">
-          <li class="complain">Пожаловаться</li>
-          <li class="reply">Ответить</li>
-        </ul>
-      </div>
-    </div>
-  </div>`
+
+    return elem('div', {class: 'comment-wrap'}, [
+        elem('div', {class: 'photo'}, [
+            elem('div', {class: 'avatar', style: 'background-image: url(' + comment.author.pic + ')'}, '')
+        ]),
+        elem('div', {class: 'comment-block'}, [
+            elem('p', {class: 'comment-text'}, comment.text.split('\n').join('<br>')),
+            elem('div', {class: 'bottom-comment'}, [
+                elem('div', {class: 'comment-date'}, new Date(comment.date).toLocaleString('ru-Ru')),
+                elem('ul', {class: 'comment-actions'}, [
+                    elem('li', {class: 'complain'}, 'Пожаловаться'),
+                    elem('li', {class: 'reply'}, 'Ответить')
+                ])
+            ])
+        ])
+    ]);
+}
+function elem(tagName, attributes, children) {
+    const element = document.createElement(tagName);
+    if (typeof attributes === 'object') {
+        Object.keys(attributes).forEach(i => element.setAttribute(i, attributes[i]));
+    }
+    if (typeof children === 'string') {
+        element.textContent = children;
+    } else if (children instanceof Array) {
+        children.forEach(child => element.appendChild(child));
+    }
+    return element;
 }
 
 fetch('https://neto-api.herokuapp.com/comments')
-  .then(res => res.json())
-  .then(showComments);
+        .then(res => res.json())
+        .then(showComments);
