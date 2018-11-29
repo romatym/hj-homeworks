@@ -6,11 +6,11 @@ const acSelect = document.getElementById('acSelect');
 const btnSeats = document.getElementById('btnSeatMap');
     btnSeats.addEventListener('click', showSeats);
 const btnSetEmpty = document.getElementById('btnSetEmpty');
-        btnSetEmpty.disabled = true;
-        btnSetEmpty.addEventListener('click', empty);
+    btnSetEmpty.disabled = true;
+    btnSetEmpty.addEventListener('click', empty);
 const btnSetFull = document.getElementById('btnSetFull');
-        btnSetFull.disabled = true;
-        btnSetFull.addEventListener('click', full);
+    btnSetFull.disabled = true;
+    btnSetFull.addEventListener('click', full);
         
 var totalAdult = 0, totalHalf = 0, total = 0;
 var startNodes = [];        
@@ -57,10 +57,11 @@ function empty(e) {
     [].forEach.call(seats, function(seat) {
         seat.classList.remove('adult');
         seat.classList.remove('half');
-        totalAdult = 0;
-        totalHalf = 0;
     });
-    updateSeats();
+    totalAdult = 0;
+    totalHalf = 0;
+    
+    updateSeats();    
 }
 
 function showSeats(e) {
