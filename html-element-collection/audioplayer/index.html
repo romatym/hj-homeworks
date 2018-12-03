@@ -39,6 +39,11 @@
             </div>
         </div>
         <script>
+
+            var mediaplayer = document.getElementsByClassName('mediaplayer')[0];
+            var audio = document.getElementsByTagName('audio')[0];
+            var playstate = document.getElementsByClassName('playstate')[0];
+
             var player = {
                 songs: [
                     'https://netology-code.github.io/hj-homeworks/html-element-collection/audioplayer/mp3/LA Chill Tour.mp3',
@@ -55,29 +60,32 @@
                 },
                 left: function () { // крутим на один трек влево
                     this.frame--;
-                    if (this.frame < 0)
+                    if (this.frame < 0) {
                         this.frame = this.songs.length - 1;
+                    }
                     this.set(this.songs[this.frame]);
                     document.getElementsByClassName('title')[0].setAttribute('title', this.names[this.frame]);
-                    audio.play();
+                    if (mediaplayer.classList.contains('play')) {
+                        audio.play();
+                    }
                 },
                 right: function () { // крутим на один трек вправо
                     this.frame++;
-                    if (this.frame == this.songs.length)
+                    if (this.frame === this.songs.length) {
                         this.frame = 0;
+                    }
                     this.set(this.songs[this.frame]);
+
                     document.getElementsByClassName('title')[0].setAttribute('title', this.names[this.frame]);
-                    audio.play();
+                    if (mediaplayer.classList.contains('play')) {
+                        audio.play();
+                    }
                 }
             };
 
-            var mediaplayer = document.getElementsByClassName('mediaplayer')[0];
-            var audio = document.getElementsByTagName('audio')[0];
-            var playstate = document.getElementsByClassName('playstate')[0];
-
-            audio.onended = function(){
+            audio.onended = function () {
                 player.right();
-            }
+            };
 
             playstate.onclick = function () {
                 playstate.classList.toggle('active');
