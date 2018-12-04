@@ -13,5 +13,6 @@ img.logo.moving{
   position: absolute;
   top: 50px;
   left: 50%;
-  margin-left: -100px; 
+  margin-left: -100px;
+  border: 1px red;
 }
