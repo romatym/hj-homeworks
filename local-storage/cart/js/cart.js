@@ -108,10 +108,12 @@ function getCartData() {
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
         cart = JSON.parse(this.response);
         const quickCart = document.getElementById('quick-cart');
-
+        price = 0;
+        quickCart.innerHTML = '';
         for (const item of cart) {
-            price += Number(item.price);
-            quickCart.innerHTML =
+            price = Number(item.price) * Number(item.quantity);
+            
+            quickCart.innerHTML +=
                     '<div class="quick-cart-product quick-cart-product-static" id="quick-cart-product-' + item.id + '" style="opacity: 1;">' +
                     '<div class="quick-cart-product-wrap">' +
                     '<img src="' + item.pic + '" title="' + item.title + '">' +
@@ -123,7 +125,7 @@ function getCartData() {
                     '</div>';
         }
         const open = cart.length > 0 ? ' open ' : '';
-        quickCart.innerHTML =
+        quickCart.innerHTML +=
                 '<a id="quick-cart-pay" quickbeam="cart-pay" class="cart-ico ' + open + '">' +
                 '<span>' +
                 '<strong class="quick-cart-text">Оформить заказ<br></strong>' +
