@@ -1,7 +1,7 @@
 'use strict';
 
 function handleTableClick(event) {
-    var elem = event.target; //event.target
+    const elem = event.target; //event.target
     if(elem.classList.contains('prop__name')) {
         if(elem.hasAttribute('data-dir')) {
             var direction = Number(elem.dataset.dir) * -1;
