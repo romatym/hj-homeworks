@@ -6,6 +6,7 @@ function showComments(list) {
     const fragment = list.reduce(
             function (fragment, currentValue) {
                 const aaa = createComment(currentValue);
+                console.log(aaa.innerHTML);
                 fragment.appendChild(aaa);
                 return fragment;
             }, document.createDocumentFragment());
@@ -19,7 +20,7 @@ function createComment(comment) {
             elem('div', {class: 'avatar', style: 'background-image: url(' + comment.author.pic + ')'}, '')
         ]),
         elem('div', {class: 'comment-block'}, [
-            elem('p', {class: 'comment-text'}, comment.text.split('\n').join('<br>')),
+            elem('p', {class: 'comment-text', style:'white-space:pre'}, comment.text), //.text.split('\n').join('<br>')),
             elem('div', {class: 'bottom-comment'}, [
                 elem('div', {class: 'comment-date'}, new Date(comment.date).toLocaleString('ru-Ru')),
                 elem('ul', {class: 'comment-actions'}, [
@@ -39,7 +40,7 @@ function elem(tagName, attributes, children) {
         Object.keys(attributes).forEach(i => element.setAttribute(i, attributes[i]));
     }
     if (typeof children === 'string') {
-        element.textContent = children;
+        element.textContent = children; //.split('\n').join('<br>');
     } else if (children instanceof Array) {
         children.forEach(child => element.appendChild(child));
     }
