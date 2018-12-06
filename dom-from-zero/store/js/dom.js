@@ -26,6 +26,6 @@ const node = {
     ]
 };
 
-const element = createElement(node);
-const wrapper = document.getElementById('root');
-wrapper.appendChild(element);
+//const element = createElement(node);
+//const wrapper = document.getElementById('root');
+//wrapper.appendChild(element);
