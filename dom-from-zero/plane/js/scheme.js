@@ -111,10 +111,12 @@ function onLoad() {
 function takePlace(e) {
     e.preventDefault();
     var place;
-    if(e.target.tagName === 'DIV') {
+    if(e.target.tagName === 'DIV' && e.target.classList.contains('seat')) {
         place = e.target.classList;
-    } else {
+    } else if(e.target.classList.contains('seat-label')) {
         place = e.target.parentNode.classList;
+    } else {
+        return;
     }
         
     if(place.contains('adult')) {
@@ -141,7 +143,7 @@ function updateSeats() {
 function createRow(rowData, letters, index) {
     return elem('div', {class: 'row seating-row text-center'}, [
         elem('div', {class: 'col-xs-1 row-number'}, [
-            elem('h2', {class: ''}, index)
+            elem('h2', {class: ''}, index.toString())
         ]),
         elem('div', {class: 'col-xs-5'}, [
             addSeat(letters[0]),
