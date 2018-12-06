@@ -5,7 +5,8 @@ function showComments(list) {
 
     const fragment = list.reduce(
             function (fragment, currentValue) {
-                fragment.appendChild(createComment(currentValue));
+                const aaa = createComment(currentValue);
+                fragment.appendChild(aaa);
                 return fragment;
             }, document.createDocumentFragment());
 
@@ -28,6 +29,9 @@ function createComment(comment) {
             ])
         ])
     ]);
+}
+function createBr() {
+    
 }
 function elem(tagName, attributes, children) {
     const element = document.createElement(tagName);
