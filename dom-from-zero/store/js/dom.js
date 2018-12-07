@@ -5,7 +5,7 @@ function createElement(node) {
         return document.createTextNode(node);
     }
     const element = document.createElement(node.name);
-    if (typeof node === 'object') {
+    if (typeof node === 'object' && !(node.props === null)) {
         Object.keys(node.props).forEach(i => element.setAttribute(i, node.props[i]));
     }
     if (node.childs instanceof Array) {
@@ -25,7 +25,3 @@ const node = {
         'Заголовок'
     ]
 };
-
-//const element = createElement(node);
-//const wrapper = document.getElementById('root');
-//wrapper.appendChild(element);
