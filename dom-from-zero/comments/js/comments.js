@@ -5,8 +5,8 @@ function showComments(list) {
 
     const fragment = list.reduce(
             function (fragment, currentValue) {
-                console.log(createComment(currentValue));
-                fragment.appendChild(aaa);
+                
+                fragment.appendChild(createComment(currentValue));
                 return fragment;
             }, document.createDocumentFragment());
 
