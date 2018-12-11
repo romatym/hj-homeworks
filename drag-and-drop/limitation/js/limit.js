@@ -11,7 +11,7 @@ input.addEventListener('focus', debounce(() => {
     
 }, 2000));
 
-input.addEventListener('blur', debounce(() => {
+input.addEventListener('keyup', debounce(() => {
     
     block.classList.remove('active');
     message.classList.add('view');
